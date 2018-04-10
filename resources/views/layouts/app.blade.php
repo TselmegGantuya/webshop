@@ -51,9 +51,11 @@
                                 @endforeach
                             </div>
                         </li>
+                        @auth
                         <li class='nav-item'>
                             <a class='nav-link' href="{{url('/shop')}}">Shopping cart</a>
                         </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

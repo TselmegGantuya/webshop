@@ -6,9 +6,9 @@ $.ajaxSetup({
     }
 });
 
-$('#add').on('click', function(){
+$('.add').on('click', function(){
 
-	$.post(baseUrl + 'shop/add', { id:$(this).attr('value')})
+	$.post(baseUrl + 'shop/add', { id:$(this).attr('id')})
 })
 $('.delete').on('click', function(){
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\ShoppingCart;
-use App\Myclasses\Shoppingitem;
+use App\ShoppingCart\Shoppingitem;
 use Illuminate\Database\Eloquent\Model;
 
 class ShoppingCart
@@ -14,7 +14,7 @@ class ShoppingCart
 	function __construct($request)
 	{
         $this->session = $request->session();
-        $this->items = $this->session->has( 'SHOPPINGCART' ) ? $this->session->get( 'SHOPPINGCART' ) : [];
+        $this->items = $this->session->has( self::SHOPPINGCART ) ? $this->session->get( self::SHOPPINGCART ) : [];
 
     }
 
@@ -23,7 +23,7 @@ class ShoppingCart
     	if(empty($this->items))
     	{
     		$item = new Shoppingitem($id,1);
-			$this->session->push("SHOPPINGCART", $item);
+			$this->session->push(self::SHOPPINGCART, $item);
 			$this->items[] = $item;
     	}else
     	{
@@ -36,7 +36,7 @@ class ShoppingCart
             else
             {
         		$item = new Shoppingitem($id,1);
-        		$this->session->push("SHOPPINGCART",$item);
+        		$this->session->push(self::SHOPPINGCART,$item);
         		$this->items[] = $item;
             }
     	}   
@@ -54,7 +54,7 @@ class ShoppingCart
     public function remove($id)
     {
 		$item = $this->getItem($id);
-    	$cart = $this->session->get("SHOPPINGCART");
+    	$cart = $this->session->get(self::SHOPPINGCART);
         for($i=0;$i<sizeof($cart);$i++)
         {
             if($cart[$i] == $item)
@@ -62,7 +62,7 @@ class ShoppingCart
                 unset($cart[$i]);
             }
         }
-        $this->session->set("SHOPPINGCART",$cart);
+        $this->session->set(self::SHOPPINGCART,$cart);
     	for($i=0;$i<sizeof($this->items);$i++)
         {
             if($this->items[$i] == $item)
@@ -74,7 +74,7 @@ class ShoppingCart
 
     public function removeAll()
     {
-    	$this->session->forget("SHOPPINGCART");
+    	$this->session->forget(self::SHOPPINGCART);
     }
 
 

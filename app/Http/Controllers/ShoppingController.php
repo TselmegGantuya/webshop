@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Myclasses\Shoppingcart;
+use App\ShoppingCart\Shoppingcart;
 use App\Articles;
 use Illuminate\Http\Request;
 
 class ShoppingController extends Controller
-{
+{   
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

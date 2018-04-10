@@ -17,7 +17,7 @@
                         @endforeach
                         @guest
                         @else
-                        <li id='add' value="{{$article->id}}"><a href="#add">add to shopping cart</a></li>
+                        <li class='add' id="{{$article->id}}"><a href="#add">add to shopping cart</a></li>
                         @endguest
                     </ul>
                 </div>

@@ -4,7 +4,7 @@ namespace App\Myclasses;
 use App\Myclasses\Shoppingitem;
 use Illuminate\Database\Eloquent\Model;
 
-class Shoppingcart
+class ShoppingCart
 {
 
     const SHOPPINGCART = 'Shoppingcart';

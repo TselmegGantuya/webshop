@@ -2,7 +2,7 @@
 
 namespace App\Myclasses;
 
-class Shoppingitem
+class ShoppingItem
 {
 	public $name;
 	public $quantity;

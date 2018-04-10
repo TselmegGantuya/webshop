@@ -27,5 +27,6 @@ Route::post('/shop/add', 'ShoppingController@add');
 Route::post('/shop/delete', 'ShoppingController@delete');
 Route::post('/shop/order', 'ShoppingController@order');	
 Route::get('/shop', 'ShoppingController@index');
+Route::get('/shop/test/{id}', 'ShoppingController@test');
 
 Auth::routes();

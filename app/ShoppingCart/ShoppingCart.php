@@ -62,7 +62,7 @@ class ShoppingCart
                 unset($cart[$i]);
             }
         }
-        $this->session->set(self::SHOPPINGCART,$cart);
+        $this->session->put(self::SHOPPINGCART,$cart);
     	for($i=0;$i<sizeof($this->items);$i++)
         {
             if($this->items[$i] == $item)
@@ -70,6 +70,7 @@ class ShoppingCart
                 unset($this->items[$i]);
             }
         }
+        dd($cart);
     }
 
     public function removeAll()

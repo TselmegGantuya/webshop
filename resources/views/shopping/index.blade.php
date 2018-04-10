@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Articles</div>
+                <div class="card-header">Shopping Cart</div>
 
                 <div class="card-body">
                     <ul>
                         <form method='post' action='{{url("shop/order")}}'>
                         @csrf
-                        @foreach($article as $art)
-                            <li><a href="{{url('/article/get/' . $art->id) }}">{{$art->name}}</a> <span> price:{{$art->price}}</span><input type="input" name="{{$art->id}}" value='1'><a class="delete" id="{{$art->id}}" href="#">delete</a></li>
-                        @endforeach
+                        @for($i=0;$i<sizeof($article);$i++)
+                            <li><a href="{{url('/article/get/' . $article[$i]->id) }}">{{$article[$i]->name}}</a> <span> price:{{$article[$i]->price}}</span><input type="input" name="{{$article[$i]->id}}" value='{{$items[$i]->quantity}}'><a class="delete" id="{{$article[$i]->id}}" href="#">delete</a></li>
+                        @endfor
                         <input type="submit" name="" value='Order'>
                         </form>
                     </ul>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Myclasses;
+namespace App\ShoppingCart;
 
 class ShoppingItem
 {

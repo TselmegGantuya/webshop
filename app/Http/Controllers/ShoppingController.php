@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\ShoppingCart\Shoppingcart;
 use App\Articles;
+use App\Clients;
+use App\Orders;
+use Auth;
+use App\OrderDetails;
 use Illuminate\Http\Request;
 
 class ShoppingController extends Controller
@@ -41,14 +45,33 @@ class ShoppingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created order in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function order(Request $request)
     {
-        dd($request->input());
+        $items = $request->all();
+        unset($items['_token']);
+        $client = Auth::user()->client()->first();
+        $order = Orders::create([
+            'client_id' => $client->id,
+        ]);
+        foreach($items as $key => $value)
+        {
+            OrderDetails::create([
+                'order_id' => $order->id,
+                'article_id' => $key,
+                'quantity' => $value,
+                'description' => 'hey',
+            ]);
+        }
+
+        $cart = new Shoppingcart($request);
+        $cart->removeAll(); 
+
+        return redirect()->to('/home');
     }
 
     /**
@@ -71,7 +94,7 @@ class ShoppingController extends Controller
      */
     public function test(Request $request, $id)
     {
-        
+
     }
 
     /**
@@ -81,9 +104,21 @@ class ShoppingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function show(Request $request)
+    {   
+        if(Auth::user()->role == 'admin')
+        {
+
+        }
+        $orders = Auth::user()->client()->first()->orders()->get();
+        $order = [];
+        for($i=0;$i<sizeof($orders);$i++)
+        {
+            $order[] = $orders[$i]->details()->get();
+        }
+        
+        return view('shopping/all', compact('order'));
+
     }
 
     /**

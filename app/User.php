@@ -10,6 +10,11 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+
+    public function client()
+    {
+        return $this->hasOne('App\Clients');
+    }
     
 
     /**

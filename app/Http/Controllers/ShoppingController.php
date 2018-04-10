@@ -71,8 +71,6 @@ class ShoppingController extends Controller
      */
     public function test(Request $request, $id)
     {
-        $cart = new Shoppingcart($request);
-        $hi = $cart->remove($id); 
         
     }
 

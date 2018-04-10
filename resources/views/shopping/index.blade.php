@@ -12,7 +12,7 @@
                         <form method='post' action='{{url("shop/order")}}'>
                         @csrf
                         @for($i=0;$i<sizeof($article);$i++)
-                            <li><a href="{{url('/article/get/' . $article[$i]->id) }}">{{$article[$i]->name}}</a> <span> price:{{$article[$i]->price}}</span><input type="input" name="{{$article[$i]->id}}" value='{{$items[$i]->quantity}}'><a class="delete" id="{{$article[$i]->id}}" href="#">delete</a></li>
+                            <li><a href="{{url('/article/get/' . $article[$i]->id) }}">{{$article[$i]->name}}</a> <span> price:{{$article[$i]->price}}</span><input type="input" name="{{$article[$i]->id}}" value='{{$items[$i]->quantity}}'>  <a class="delete" id="{{$article[$i]->id}}" href="#">delete</a></li>
                         @endfor
                         <input type="submit" name="" value='Order'>
                         </form>

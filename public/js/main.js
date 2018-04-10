@@ -13,4 +13,5 @@ $('.add').on('click', function(){
 $('.delete').on('click', function(){
 
 	$.post(baseUrl + 'shop/delete', { id:$(this).attr('id')})
+	$(this).parent().remove()
 })

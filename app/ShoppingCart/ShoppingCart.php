@@ -13,6 +13,7 @@ class ShoppingCart
 
 	function __construct($request)
 	{
+
         $this->session = $request->session();
         $this->items = $this->session->has( self::SHOPPINGCART ) ? $this->session->get( self::SHOPPINGCART ) : [];
 
@@ -55,14 +56,17 @@ class ShoppingCart
     {
 		$item = $this->getItem($id);
     	$cart = $this->session->get(self::SHOPPINGCART);
+        $this->session->forget(self::SHOPPINGCART);
         for($i=0;$i<sizeof($cart);$i++)
         {
             if($cart[$i] == $item)
             {
-                unset($cart[$i]);
+                continue;
             }
+            $this->session->push(self::SHOPPINGCART,$cart[$i]);
         }
-        $this->session->put(self::SHOPPINGCART,$cart);
+        
+
     	for($i=0;$i<sizeof($this->items);$i++)
         {
             if($this->items[$i] == $item)
@@ -70,7 +74,7 @@ class ShoppingCart
                 unset($this->items[$i]);
             }
         }
-        dd($cart);
+
     }
 
     public function removeAll()

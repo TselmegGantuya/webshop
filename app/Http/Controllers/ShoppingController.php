@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class ShoppingController extends Controller
 {   
-    function __construct()
+    function __construct()  
     {
         $this->middleware('auth');
     }
@@ -25,12 +25,15 @@ class ShoppingController extends Controller
         $cart = new Shoppingcart($request);
         $items = $cart->getAll();
         $article= [];
+        $totprice = 0;
         for($i=0;$i<sizeof($items);$i++)
         {
             $article[] = Articles::FindOrFail($items[$i]->name);
+            $price =  $article[$i]->price * $items[$i]->quantity;
+            $totprice += $price;
         }
 
-        return view('shopping/index',compact('items','article'));
+        return view('shopping/index',compact('items','article','totprice'));
     }
 
     /**
@@ -58,16 +61,25 @@ class ShoppingController extends Controller
         $order = Orders::create([
             'client_id' => $client->id,
         ]);
+        $numb = 0;
         foreach($items as $key => $value)
         {
+            if($value == 0)
+                {
+                    continue;
+                }
             OrderDetails::create([
                 'order_id' => $order->id,
                 'article_id' => $key,
                 'quantity' => $value,
                 'description' => 'hey',
             ]);
+            $numb++;
         }
-
+        if($numb == 0)
+        {
+            $order->delete();
+        }
         $cart = new Shoppingcart($request);
         $cart->removeAll(); 
 
@@ -106,18 +118,16 @@ class ShoppingController extends Controller
      */
     public function show(Request $request)
     {   
-        if(Auth::user()->role == 'admin')
-        {
-
-        }
         $orders = Auth::user()->client()->first()->orders()->get();
         $order = [];
+        
         for($i=0;$i<sizeof($orders);$i++)
         {
             $order[] = $orders[$i]->details()->get();
         }
+
         
-        return view('shopping/all', compact('order'));
+        return view('shopping/all', compact('order', 'orders'));
 
     }
 

@@ -56,6 +56,18 @@
                             <a class='nav-link' href="{{url('/shop')}}">Shopping cart</a>
                         </li>
                         @endauth
+                        @auth
+                        <li class='nav-item'>
+                            <a class='nav-link' href="{{url('/shop/show')}}">Orders</a>
+                        </li>
+                        @endauth
+                        @auth
+                            @if(Auth::user()->role == 'admin')
+                                <li class='nav-item'>
+                                    <a class='nav-link' href="{{url('/admin')}}">Admin</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

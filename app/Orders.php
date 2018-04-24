@@ -2,10 +2,12 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Orders extends Model
 {
+	use SoftDeletes;
     protected $fillable = ['client_id'];
 
     public function client()
